@@ -69,40 +69,52 @@ public class Stock {
 
             // ทำการคำนวณ unrealizedGain จากหุ้นใน List ที่เหลือ
 
-            // การไล่ใน List จะทำการสร้าง List ชนิดเดียวกันขึ้นมาอีกตัว 
-            // มาเก็บ Node ที่ทุก pop() ไป
+             // // วิธีที่ 1
+            // // การไล่ใน List จะทำการสร้าง List ชนิดเดียวกันขึ้นมาอีกตัว 
+            // // มาเก็บ Node ที่ทุก pop() ไป
 
-            List temp;
-            // check ว่า List เป็นชนิดใด
-            if (list.getClass() == new Stack().getClass())
-                temp = new Stack();
-            else
-                temp = new Queue();
-            // ถ้า List ยังไม่ว่าง ให้คำนวณ unrealizedGain
-            // จากนั้นจึง pop() ทิ้ง    
+            // List temp;
+            // // check ว่า List เป็นชนิดใด
+            // if (list.getClass() == new Stack().getClass())
+            //     temp = new Stack();
+            // else
+            //     temp = new Queue();
+
+            // // ถ้า List ยังไม่ว่าง ให้คำนวณ unrealizedGain
+            // // จากนั้นจึง pop() ทิ้ง    
              
-            while (list.top() != null) {
-                Node shareNow = list.top();
+            // while (list.top() != null) {
+            //     Node shareNow = list.top();
 
-                int no_share = shareNow.shares;
-                double price = shareNow.price;
-                temp.push(new Node(no_share, price));
+            //     int no_share = shareNow.shares;
+            //     double price = shareNow.price;
+            //     temp.push(new Node(no_share, price));
 
-                unrealizedGain += no_share * (soldPrice - price);
-                list.pop();
-            }
+            //     unrealizedGain += no_share * (soldPrice - price);
+            //     list.pop();
+            // }
 
-            // นำแต่ละหุ้นใน temp กลับเข้ามา List เดิม
-            // ด้วยการ push()
-            while (temp.top() != null) {
-                Node shareNow = temp.top();
-                int no_share = shareNow.shares;
-                double price = shareNow.price;
-                list.push(new Node(no_share, price));
-                temp.pop();
-            }
-
+            // // นำแต่ละหุ้นใน temp กลับเข้ามา List เดิม
+            // // ด้วยการ push()
+            // while (temp.top() != null) {
+            //     Node shareNow = temp.top();
+            //     int no_share = shareNow.shares;
+            //     double price = shareNow.price;
+            //     list.push(new Node(no_share, price));
+            //     temp.pop();
+            // }
             // หักลบจำนวนหุ้นทั้งหมดที่มี
+            // totalShares -= soldShares;
+
+            // วิธีที่ 2
+            Node cur = list.top();
+            while(cur != null){
+                int no_share = cur.shares;
+                double price = cur.price;
+                unrealizedGain += (soldPrice - price) * no_share;
+                cur = cur.next;
+            }
+            
             totalShares -= soldShares;
             System.out.println("Realized P/L = " + realizedGain + " Unrealized P/L = " + unrealizedGain);
         } else {
