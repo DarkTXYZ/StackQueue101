@@ -69,7 +69,7 @@ public class Stock {
 
             // ทำการคำนวณ unrealizedGain จากหุ้นใน List ที่เหลือ
 
-             // // วิธีที่ 1
+            // // วิธีที่ 1
             // // การไล่ใน List จะทำการสร้าง List ชนิดเดียวกันขึ้นมาอีกตัว 
             // // มาเก็บ Node ที่ทุก pop() ไป
 
@@ -114,7 +114,7 @@ public class Stock {
                 unrealizedGain += (soldPrice - price) * no_share;
                 cur = cur.next;
             }
-            
+
             totalShares -= soldShares;
             System.out.println("Realized P/L = " + realizedGain + " Unrealized P/L = " + unrealizedGain);
         } else {
